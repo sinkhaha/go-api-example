@@ -8,4 +8,21 @@
 * 获取指定用户的详细信息
 * 获取用户列表
 
+# 启动http服务
+```bash
+# 初始化go mod
+go mod init go-api-example
 
+# 下载gin
+go get -u github.com/gin-gonic/gin
+
+# 下载gopsutil包
+go get -u github.com/shirou/gopsutil
+
+# 启动服务
+go run main.go
+
+# 访问
+curl http://localhost:8080/sd/health
+
+```
