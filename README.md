@@ -21,6 +21,9 @@ go get -u github.com/shirou/gopsutil
 
 # 启动服务
 go run main.go
+或
+go build main.go
+ ./main 
 
 # 访问
 curl http://localhost:8080/home/health
