@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"log"
 	"net/http"
 	"time"
 
@@ -11,6 +10,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/lexkong/log"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
@@ -33,7 +33,7 @@ func main() {
 	// 开个协程循环打印环境，可验证修改runmode的值后会监听配置进行热更新
 	go func() {
 		for {
-			log.Printf("current mode: %s", viper.GetString("runmode"))
+			log.Infof("current mode: %s", viper.GetString("runmode"))
 			time.Sleep(5 * time.Second)
 		}
 	}()
@@ -50,12 +50,12 @@ func main() {
 		if err := pingServer(); err != nil {
 			log.Fatal("router没反应，超时", err)
 		}
-		log.Print("router成功加载")
+		log.Info("router成功加载")
 	}()
 
 	addr := viper.GetString("addr")
-	log.Printf("listening %s", addr)
-	log.Print(http.ListenAndServe(addr, g).Error())
+	log.Infof("listening %s", addr)
+	log.Info(http.ListenAndServe(addr, g).Error())
 }
 
 func pingServer() error {
@@ -69,7 +69,7 @@ func pingServer() error {
 			return nil
 		}
 
-		log.Print("waiting for the router, retry in 1 second")
+		log.Info("waiting for the router, retry in 1 second")
 		time.Sleep(time.Second)
 	}
 	return errors.New("健康检查失败")

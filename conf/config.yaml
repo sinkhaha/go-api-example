@@ -3,3 +3,14 @@ addr: :8080                  # HTTP绑定端口
 name: apiserver              # API Server的名字
 url: http://127.0.0.1:8080   # pingServer函数请求的API服务器的ip:port
 max_ping_count: 2           # pingServer函数尝试的次数
+# 日志配置
+log:
+  writers: file,stdout # 输出位置，有两个可选项file和stdout。选择file会将日志记录到logger_file文件中，选择stdout会将日志输出到标准输出，也可以两者同时选择
+  logger_level: DEBUG # 日志级别，DEBUG、INFO、WARN、ERROR、FATAL
+  logger_file: log/apiserver.log
+  log_format_text: false # 日志的输出格式，JSON或plaintext，true会输出成非JSON格式，false会输出成JSON格式
+  rollingPolicy: size # rotate 依据，可选的有daily和size。选daily根据天进行转存，size根据大小进行转存
+  log_rotate_date: 1 # rotate 转存时间，配 合rollingPolicy: daily 使用
+  log_rotate_size: 1 # rotate 转存大小，配合 rollingPolicy: size 使用
+  log_backup_count: 7 # 当日志文件达到转存标准时，log 系统会将该日志文件进行压缩备份，这里指定了备份文件的最大个数
+  
