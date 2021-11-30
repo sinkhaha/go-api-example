@@ -23,6 +23,6 @@ go get -u github.com/shirou/gopsutil
 go run main.go
 
 # 访问
-curl http://localhost:8080/sd/health
+curl http://localhost:8080/home/health
 
 ```

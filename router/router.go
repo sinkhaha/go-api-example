@@ -9,7 +9,7 @@ import (
 )
 
 func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
-	// 使用中间件
+	// 注册中间件
 	g.Use(gin.Recovery())
 	g.Use(middleware.NoCache)
 	g.Use(middleware.Options)
@@ -21,13 +21,14 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		c.String(http.StatusNotFound, "路径错误")
 	})
 
-	// sd分组下注册 /health  /disk  /cpu  /ram等4个路由
-	svcd := g.Group("/sd")
+	// 注册路由
+	// home分组下有 /health  /disk  /cpu  /ram等4个路由
+	homeRouteGroup := g.Group("/home")
 	{
-		svcd.GET("/health", sd.HealthCheck)
-		svcd.GET("/disk", sd.DiskCheck)
-		svcd.GET("/cpu", sd.CPUCheck)
-		svcd.GET("/ram", sd.RAMCheck)
+		homeRouteGroup.GET("/health", sd.HealthCheck)
+		homeRouteGroup.GET("/disk", sd.DiskCheck)
+		homeRouteGroup.GET("/cpu", sd.CPUCheck)
+		homeRouteGroup.GET("/ram", sd.RAMCheck)
 	}
 
 	return g
