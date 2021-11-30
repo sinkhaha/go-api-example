@@ -8,7 +8,9 @@ require (
 	github.com/gin-gonic/gin v1.7.7
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/go-playground/validator/v10 v10.9.0 // indirect
+	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/jinzhu/gorm v1.9.16
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/lexkong/log v0.0.0-20180607165131-972f9cd951fc
 	github.com/mattn/go-isatty v0.0.14 // indirect

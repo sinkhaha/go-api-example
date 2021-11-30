@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"go-api-example/config"
+	"go-api-example/model"
 	"go-api-example/router"
 
 	"github.com/gin-gonic/gin"
@@ -26,6 +27,11 @@ func main() {
 	if err := config.Init(*cfg); err != nil {
 		panic(err)
 	}
+
+	// 建立数据库连接
+	model.DB.Init()
+	// 关闭数据库连接
+	defer model.DB.Close()
 
 	// 读取配置runmode的值，设置gin模式，gin 有 3 种运行模式：debug、release 和 test，debug模式会打印很多debug信息
 	gin.SetMode(viper.GetString("runmode"))
