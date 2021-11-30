@@ -2,6 +2,7 @@ package router
 
 import (
 	"go-api-example/handler/sd"
+	"go-api-example/handler/user"
 	"go-api-example/router/middleware"
 	"net/http"
 
@@ -29,6 +30,11 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		homeRouteGroup.GET("/disk", sd.DiskCheck)
 		homeRouteGroup.GET("/cpu", sd.CPUCheck)
 		homeRouteGroup.GET("/ram", sd.RAMCheck)
+	}
+
+	u := g.Group("/v1/user")
+	{
+		u.POST("", user.Create)
 	}
 
 	return g
