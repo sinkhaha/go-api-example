@@ -10,7 +10,7 @@ CREATE TABLE `tb_users` (
   `password` varchar(255) NOT NULL,
   `createdAt` timestamp NULL DEFAULT NULL,
   `updatedAt` timestamp NULL DEFAULT NULL,
-  `deletedAt` timestamp NULL DEFAULT NULL,
+  `deletedAt` timestamp NULL DEFAULT NULL, -- 删除时间，有值代表已删除
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   KEY `idx_tb_users_deletedAt` (`deletedAt`)

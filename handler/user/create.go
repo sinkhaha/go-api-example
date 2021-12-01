@@ -3,16 +3,21 @@ package user
 import (
 	"fmt"
 
+	"go-api-example/model"
 	"go-api-example/pkg/errno"
+	"go-api-example/util"
 
 	. "go-api-example/handler"
 
 	"github.com/gin-gonic/gin"
 	"github.com/lexkong/log"
+	"github.com/lexkong/log/lager"
 )
 
-// 增加用户
-func Create(c *gin.Context) {
+// 创建用户
+func CreateDemo(c *gin.Context) {
+	log.Info("创建用户", lager.Data{"X-Request-Id": util.GetReqID(c)})
+
 	var r CreateRequest
 
 	var err error
@@ -50,6 +55,46 @@ func Create(c *gin.Context) {
 
 	if r.Password == "" {
 		SendResponse(c, fmt.Errorf("password is empty"), nil)
+		return
+	}
+
+	rsp := CreateResponse{
+		Username: r.Username,
+	}
+
+	SendResponse(c, nil, rsp)
+}
+
+// 插入一个用户到数据库
+func CreateDataBase(c *gin.Context) {
+	log.Info("插入用户", lager.Data{"X-Request-Id": util.GetReqID(c)})
+
+	var r CreateRequest
+	if err := c.Bind(&r); err != nil {
+		SendResponse(c, errno.ErrBind, nil)
+		return
+	}
+
+	u := model.UserModel{
+		Username: r.Username,
+		Password: r.Password,
+	}
+
+	// 参数校验
+	if err := u.Validate(); err != nil {
+		SendResponse(c, errno.ErrValidation, nil)
+		return
+	}
+
+	// 加密密码
+	if err := u.Encrypt(); err != nil {
+		SendResponse(c, errno.ErrEncrypt, nil)
+		return
+	}
+
+	// 插入用户
+	if err := u.Create(); err != nil {
+		SendResponse(c, errno.ErrDatabase, nil)
 		return
 	}
 
