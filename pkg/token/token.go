@@ -69,20 +69,20 @@ func ParseRequest(c *gin.Context) (*Context, error) {
 	return Parse(t, secret)
 }
 
-// Sign signs the context with the specified secret.
+// 生成token
 func Sign(ctx *gin.Context, c Context, secret string) (tokenString string, err error) {
-	// Load the jwt secret from the Gin config if the secret isn't specified.
 	if secret == "" {
 		secret = viper.GetString("jwt_secret")
 	}
-	// The token content.
+
+	// payload内容
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"id":       c.ID,
 		"username": c.Username,
 		"nbf":      time.Now().Unix(),
 		"iat":      time.Now().Unix(),
 	})
-	// Sign the token with the specified secret.
+
 	tokenString, err = token.SignedString([]byte(secret))
 
 	return
