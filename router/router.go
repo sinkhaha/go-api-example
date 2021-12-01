@@ -32,7 +32,12 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		homeRouteGroup.GET("/ram", sd.RAMCheck)
 	}
 
+	// 登陆接口
+	g.POST("/login", user.Login)
+
 	u := g.Group("/v1/user")
+	// 对/v1/user前缀的组使用鉴权中间件
+	u.Use(middleware.AuthMiddleware())
 	{
 		// 测试创建用户
 		u.POST("/:username", user.CreateDemo)

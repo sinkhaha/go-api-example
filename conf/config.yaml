@@ -25,3 +25,5 @@ cloud_db: # 云数据库配置
   addr: 127.0.0.1:3306
   username: root
   password: 12345678
+# jwt密钥  
+jwt_secret: Rtg8BPKNEf2mB4mgvKONGPZZQSaJWNLijxR42qRgq0iBb5
