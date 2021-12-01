@@ -8,6 +8,7 @@ import (
 	"go-api-example/config"
 	"go-api-example/model"
 	"go-api-example/router"
+	"go-api-example/router/middleware"
 
 	"github.com/gin-gonic/gin"
 
@@ -47,9 +48,15 @@ func main() {
 	// create a gin engine
 	g := gin.New()
 
-	middlewares := []gin.HandlerFunc{}
+	// middlewares := []gin.HandlerFunc{}
 
-	router.Load(g, middlewares...)
+	router.Load(
+		g,
+
+		// 全局中间件 最终会调用g.Use()加载该中间件
+		middleware.Logging(),
+		middleware.RequestId(),
+	)
 
 	// 开启个协程去请求/sd/health路由
 	go func() {

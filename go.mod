@@ -15,12 +15,14 @@ require (
 	github.com/lexkong/log v0.0.0-20180607165131-972f9cd951fc
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
+	github.com/satori/go.uuid v1.2.0
 	github.com/shirou/gopsutil v3.21.10+incompatible
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.9.0
 	github.com/teris-io/shortid v0.0.0-20201117134242-e59966efd125
 	github.com/tklauser/go-sysconf v0.3.9 // indirect
 	github.com/ugorji/go v1.2.6 // indirect
+	github.com/willf/pad v0.0.0-20200313202418-172aa767f2a4
 	golang.org/x/crypto v0.0.0-20211117183948-ae814b36b871
 	golang.org/x/sys v0.0.0-20211124211545-fe61309f8881 // indirect
 	golang.org/x/text v0.3.7 // indirect

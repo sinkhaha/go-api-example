@@ -10,7 +10,7 @@ import (
 )
 
 func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
-	// 注册中间件
+	// 注册全局中间件
 	g.Use(gin.Recovery())
 	g.Use(middleware.NoCache)
 	g.Use(middleware.Options)
