@@ -1,12 +1,16 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
+	"os"
 	"time"
 
 	"go-api-example/config"
 	"go-api-example/model"
+	v "go-api-example/pkg/version"
 	"go-api-example/router"
 	"go-api-example/router/middleware"
 
@@ -20,10 +24,28 @@ import (
 var (
 	// cfg变量值从命令行flag传入，可以传值，比如 ./main -c config.yaml，也可以为空，如果为空会默认读取 conf/config.yaml
 	cfg = pflag.StringP("config", "c", "", "apiserver config file path")
+	// 接收命令行中-v参数所带的版本信息
+	version = pflag.BoolP("version", "v", false, "show version info.")
 )
 
 func main() {
 	pflag.Parse()
+
+	// 运行程序时带上-v即可查看版本信息
+	if *version {
+		v := v.Get()
+
+		// 格式化版本信息
+		marshalled, err := json.MarshalIndent(&v, "", "  ")
+		if err != nil {
+			fmt.Printf("%v\n", err)
+			os.Exit(1)
+		}
+
+		fmt.Println(string(marshalled))
+		return
+	}
+
 	// 初始化配置
 	if err := config.Init(*cfg); err != nil {
 		panic(err)
