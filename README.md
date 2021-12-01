@@ -28,6 +28,9 @@ go run main.go
 或
 go build main.go
  ./main 
+或
+make
+./go-api-example
 
 # 访问
 curl http://localhost:8080/home/health
