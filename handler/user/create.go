@@ -65,7 +65,14 @@ func CreateDemo(c *gin.Context) {
 	SendResponse(c, nil, rsp)
 }
 
-// 插入一个用户到数据库
+// @Summary 插入一个用户到数据库
+// @Description Add a new user
+// @Tags user
+// @Accept  json
+// @Produce  json
+// @Param user body user.CreateRequest true "Create a new user"
+// @Success 200 {object} user.CreateResponse "{"code":0,"message":"OK","data":{"username":"kong"}}"
+// @Router /user [post]
 func CreateDataBase(c *gin.Context) {
 	log.Info("插入用户", lager.Data{"X-Request-Id": util.GetReqID(c)})
 

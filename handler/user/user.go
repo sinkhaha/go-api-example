@@ -29,3 +29,9 @@ type ListResponse struct {
 	TotalCount uint64            `json:"totalCount"`
 	UserList   []*model.UserInfo `json:"userList"`
 }
+
+// swagger文档响应体
+type SwaggerListResponse struct {
+	TotalCount uint64           `json:"totalCount"`
+	UserList   []model.UserInfo `json:"userList"`
+}

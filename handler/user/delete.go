@@ -10,7 +10,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// 根据id删除用户
+// @Summary 根据id删除用户
+// @Description Delete user by ID
+// @Tags user
+// @Accept  json
+// @Produce  json
+// @Param id path uint64 true "The user's database id index num"
+// @Success 200 {object} handler.Response "{"code":0,"message":"OK","data":null}"
+// @Router /user/{id} [delete]
 func Delete(c *gin.Context) {
 	userId, _ := strconv.Atoi(c.Param("id"))
 

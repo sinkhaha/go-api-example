@@ -13,7 +13,15 @@ import (
 	"github.com/lexkong/log/lager"
 )
 
-// 更新用户信息
+// @Summary 更新用户信息
+// @Description Update a user by ID
+// @Tags user
+// @Accept  json
+// @Produce  json
+// @Param id path uint64 true "The user's database id index num"
+// @Param user body model.UserModel true "The user info"
+// @Success 200 {object} handler.Response "{"code":0,"message":"OK","data":null}"
+// @Router /user/{id} [put]
 func Update(c *gin.Context) {
 	log.Info("Update function called.", lager.Data{"X-Request-Id": util.GetReqID(c)})
 

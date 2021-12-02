@@ -10,8 +10,8 @@ gitTreeState = $(shell if git status|grep -q 'clean';then echo clean; else echo 
 
 # -w 为去掉调试信息（无法使用 gdb 调试），这样可以使编译后的二进制文件更小
 ldflags="-w -X ${versionDir}.gitTag=${gitTag} -X ${versionDir}.buildDate=${buildDate} -X ${versionDir}.gitCommit=${gitCommit} -X ${versionDir}.gitTreeState=${gitTreeState}"
-
-all: gotool # 生成go二进制文件，-ldflags传入版本等信息 ，makefile使用https://www.cnblogs.com/wang_yb/p/3990952.html  
+all: gotool # swag init为生成swagger文档。go build生成go二进制文件，-ldflags传入版本等信息 ，makefile使用https://www.cnblogs.com/wang_yb/p/3990952.html  
+	swag init
 	@go build -v -ldflags ${ldflags} .
 clean:  # 清理工作：删除二进制文件、删除 vim swp 文件
 	rm -f go-api-example

@@ -1,6 +1,8 @@
 package router
 
 import (
+	_ "go-api-example/docs" // swag工具生成的docs文件
+
 	"go-api-example/handler/sd"
 	"go-api-example/handler/user"
 	"go-api-example/router/middleware"
@@ -9,8 +11,21 @@ import (
 	"github.com/gin-contrib/pprof"
 
 	"github.com/gin-gonic/gin"
+
+	ginSwagger "github.com/swaggo/gin-swagger"
+	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
 
+// @title go-api-example API
+// @version 1.0
+// @description go-api-example demo
+
+// @contact.name
+// @contact.url http://www.swagger.io/support
+// @contact.email
+
+// @host localhost:8080
+// @BasePath /v1
 func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	// 注册全局中间件
 	g.Use(gin.Recovery())
@@ -23,6 +38,9 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	g.NoRoute(func(c *gin.Context) {
 		c.String(http.StatusNotFound, "路径错误")
 	})
+
+	// swagger api docs
+	g.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// pprof router 性能测试
 	// 程序启动后执行 go tool pprof http://127.0.0.1:8080/debug/pprof/profile 获取 profile 采集信息并分析
