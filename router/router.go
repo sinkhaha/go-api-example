@@ -6,6 +6,8 @@ import (
 	"go-api-example/router/middleware"
 	"net/http"
 
+	"github.com/gin-contrib/pprof"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -21,6 +23,11 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	g.NoRoute(func(c *gin.Context) {
 		c.String(http.StatusNotFound, "路径错误")
 	})
+
+	// pprof router 性能测试
+	// 程序启动后执行 go tool pprof http://127.0.0.1:8080/debug/pprof/profile 获取 profile 采集信息并分析
+	// 或浏览器访问 http://localhost:8080/debug/pprof 来查看当前 API 服务的状态，包括 CPU 占用情况和内存使用情况
+	pprof.Register(g)
 
 	// 注册路由
 	// home分组下有 /health  /disk  /cpu  /ram等4个路由

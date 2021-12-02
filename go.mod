@@ -6,6 +6,7 @@ require (
 	github.com/StackExchange/wmi v1.2.1 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/fsnotify/fsnotify v1.5.1
+	github.com/gin-contrib/pprof v1.3.0
 	github.com/gin-gonic/gin v1.7.7
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/go-playground/validator/v10 v10.9.0 // indirect
